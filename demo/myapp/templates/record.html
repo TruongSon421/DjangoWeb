@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{%block title%}Patient Record{%endblock%}
+{% block content %}
+<div class="card">
+    <div class="card-header"><strong>
+          {{ customer_record.name }}</strong>
+    </div>
+    <div class="card-body">
+  
+  <p class="card-text">
+  <strong>Gender: </strong>{{ customer_record.gender }}</p>
+  
+  <p class="card-text">
+  <strong>Year of Birth: </strong>{{ customer_record.year }}</p>
+  
+  <p class="card-text">
+  <strong>Address: </strong>{{ customer_record.addr }}</p>
+  
+  <p class="card-text">
+  <strong>Date: </strong>{{ customer_record.created_at }}</p>
+
+  <p class="card-text">
+  <strong>ID: </strong>{{ customer_record.id }}</p>
+      
+      
+    </div>
+  </div>
+  
+  <br/><br/>
+  <a href="{% url 'update_record' customer_record.id %}" class="btn btn-primary">Update Record</a>
+  <a href="{% url 'delete_record' customer_record.id %}" class="btn btn-danger">Delete</a>
+  <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+{%endblock%}
