@@ -32,6 +32,7 @@ class AddRecordForm(forms.ModelForm):
     gender = forms.ChoiceField(required=True, choices=[('M', 'Male'), ('F', 'Female')], widget=forms.Select(attrs={"class":"form-control"}), label="")
     year = forms.IntegerField(required=True, widget=forms.TextInput(attrs={"placeholder":"Year Of Birth", "class":"form-control"}), label="")
     addr = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder":"Address", "class":"form-control"}), label="")
+    date= forms.DateField(required=True, widget=forms.DateInput(attrs={"type":"date", "class":"form-control"}), label="")
 
     class Meta:
         model = PatientRecord

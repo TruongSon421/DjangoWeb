@@ -17,7 +17,7 @@ def home(request):
 			messages.success(request, "There Was An Error Logging In, Please Try Again")
 			return redirect('home')
 	else:
-		return render(request, 'home.html', {'records': records})
+		return render(request, 'home.html')
 def login_user(request):
     pass
 def logout_user(request):
@@ -39,6 +39,10 @@ def register_user(request):
 		form = SignUpForm()
 		return render(request, 'register.html',{'form': form})
 	return render(request, 'register.html',{'form': form})
+def record_all(request):
+	if request.user.is_authenticated:
+		records = PatientRecord.objects.all()
+		return render(request, 'record_all.html',{'records':records})
 def customer_record(request,pk):
 	if request.user.is_authenticated:
 		customer_record = PatientRecord.objects.get(id = pk)
@@ -63,7 +67,7 @@ def add_record(request):
 			if form.is_valid():
 				form.save()
 				messages.success(request, "Record Added!")
-				return redirect('home')
+				return redirect('record_all')
 		return render(request, 'add_record.html',{'form':form})
 	else:
 		messages.success(request, "You must be logged in to use that page!")
@@ -75,7 +79,7 @@ def update_record(request, pk):
 		if form.is_valid():
 			form.save()
 			messages.success(request, "Record has been updated!")
-			return redirect('home')
+			return redirect('record_all')
 		return render(request, 'update_record.html',{'form':form, 'current_record': current_record})
 	else:
 		messages.success(request, "You must be logged in to use that page!")

@@ -2,35 +2,7 @@
 {%block content%}
 
     {% if user.is_authenticated %}
-    <h1>List of Patients</h1>
-    <table class="table table-striped table-hover table-bordered">
-        <thead class="table-dark">
-          <tr>
-            <th scope="col">STT</th>
-            <th scope="col">Name</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Year of Birth</th>
-            <th scope="col">Address</th>
-            <th scope="col">Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          
-      {% if records %}
-          {% for record in records %}
-              <tr>
-                  <td><a href="{% url 'record' record.id %}">{{record.id}}</a></td>
-                  <td>{{ record.name }}</td>
-                  <td>{{ record.gender }}</td>
-                  <td>{{ record.year }}</td>
-                  <td>{{ record.addr }}</td>
-                  <td>{{ record.created_at }}</td>
-                  
-              </tr>
-          {% endfor %}
-      {% endif %}
-            </tbody>
-          </table>
+    <h1>Welcome to the administration Page, choose what to do!</h1>
     {% else %}
     <div class="col-md-6 offset-md-3">
     <h1>Login</h1>
