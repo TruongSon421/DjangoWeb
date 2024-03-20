@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Home Page{% endblock %}
 {% block content %}
-<h1>List of Patients</h1>
+<h1>Medical examination schedule</h1>
 <a href="{% url 'add_record' %}" class="btn btn-primary" role="button">Add Record</a>
 {% regroup records by date as date_list %}
 {% for date in date_list %}
