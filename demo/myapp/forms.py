@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import PatientRecord
+from .models import PatientRecord,MedicalReport
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(label="", widget = forms.TextInput(attrs={'class':'form-control','placeholder':'Email Address'}))
     name = forms.CharField(label="",max_length=100,widget = forms.TextInput(attrs={'class':'form-control','placeholder':'Name'}))
@@ -38,5 +38,67 @@ class AddRecordForm(forms.ModelForm):
         model = PatientRecord
         exclude = ("user",)
 
-#class MedicalReport(forms.ModelForm):
-     
+class MedReport(forms.ModelForm):
+    PRED_CHOICES = [
+        ('1', 'Type 1'),
+        ('2', 'Type 2'),
+        ('3', 'Type 3'),
+        ('4', 'Type 4'),
+        ('5', 'Type 5'),
+    ]
+    MEDICINE_CHOICES = [
+        ('medicine1', 'Medicine 1'),
+        ('medicine2', 'Medicine 2'),
+        ('medicine3', 'Medicine 3'),
+        ('medicine4', 'Medicine 4'),
+        ('medicine5', 'Medicine 5'),
+        ('medicine6', 'Medicine 6'),
+        ('medicine7', 'Medicine 7'),
+        ('medicine8', 'Medicine 8'),
+        ('medicine9', 'Medicine 9'),
+        ('medicine10', 'Medicine 10'),
+        ('medicine11', 'Medicine 11'),
+        ('medicine12', 'Medicine 12'),
+        ('medicine13', 'Medicine 13'),
+        ('medicine14', 'Medicine 14'),
+        ('medicine15', 'Medicine 15'),
+        ('medicine16', 'Medicine 16'),
+        ('medicine17', 'Medicine 17'),
+        ('medicine18', 'Medicine 18'),
+        ('medicine19', 'Medicine 19'),
+        ('medicine20', 'Medicine 20'),
+        ('medicine21', 'Medicine 21'),
+        ('medicine22', 'Medicine 22'),
+        ('medicine23', 'Medicine 23'),
+        ('medicine24', 'Medicine 24'),
+        ('medicine25', 'Medicine 25'),
+        ('medicine26', 'Medicine 26'),
+        ('medicine27', 'Medicine 27'),
+        ('medicine28', 'Medicine 28'),
+        ('medicine29', 'Medicine 29'),
+        ('medicine30', 'Medicine 30'),
+    ]
+
+    UNIT_CHOICES = [
+        ('pill', 'Pill'),
+        ('bottle', 'Bottle'),
+    ]
+
+    WAY_CHOICES = [
+        ('1', 'Way 1'),
+        ('2', 'Way 2'),
+        ('3', 'Way 3'),
+        ('4', 'Way 4'),
+    ]
+    name = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder":"Name", "class":"form-control"}), label="")
+    date= forms.DateField(required=True, widget=forms.DateInput(attrs={"type":"date", "class":"form-control"}), label="")
+    symptoms = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder":"Symptoms", "class":"form-control"}), label="Symptoms")
+    pred = forms.ChoiceField(required=True, choices=PRED_CHOICES, widget=forms.Select(attrs={"class":"form-control"}), label="Prediction")
+    medicine = forms.ChoiceField(required=True, choices=MEDICINE_CHOICES, widget=forms.Select(attrs={"class":"form-control"}), label="Medicine")
+    unit = forms.ChoiceField(required=True, choices=UNIT_CHOICES, widget=forms.Select(attrs={"class":"form-control"}), label="Unit")
+    amount = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder":"Amount", "class":"form-control"}), label="Amount")
+    way = forms.ChoiceField(required=True, choices=WAY_CHOICES, widget=forms.Select(attrs={"class":"form-control"}), label="Way")
+
+    class Meta:
+        model = MedicalReport
+        exclude = ("user",)
