@@ -1,8 +1,8 @@
-from django.shortcuts import render,HttpResponse, redirect
-from .models import PatientRecord
+from django.shortcuts import render, redirect
+from .models import PatientRecord,MedicalReport
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from .forms import SignUpForm, AddRecordForm
+from .forms import SignUpForm, AddRecordForm, MedReport
 def home(request):
 	records = PatientRecord.objects.all()
 	if request.method == 'POST':
@@ -81,6 +81,22 @@ def update_record(request, pk):
 			messages.success(request, "Record has been updated!")
 			return redirect('record_all')
 		return render(request, 'update_record.html',{'form':form, 'current_record': current_record})
+	else:
+		messages.success(request, "You must be logged in to use that page!")
+		return redirect('home')
+def medical_report(request):
+	if request.user.is_authenticated:
+		records = MedicalReport.objects.all()
+		return render(request, 'medical_report.html',{'records':records})
+def add_med_report(request):
+	form = MedReport(request.POST or None)
+	if request.user.is_authenticated:
+		if request.method == "POST":
+			if form.is_valid():
+				form.save()
+				messages.success(request, "Report Added!")
+				return redirect('medical_report')
+		return render(request, 'add_med_report.html',{'form':form})
 	else:
 		messages.success(request, "You must be logged in to use that page!")
 		return redirect('home')
