@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import PatientRecord,MedicalReport
+from .models import PatientRecord,MedicalReport,Bill
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from .forms import SignUpForm, AddRecordForm, MedReport
+from .forms import SignUpForm, AddRecordForm, MedReport,AddBill
 def home(request):
 	records = PatientRecord.objects.all()
 	if request.method == 'POST':
@@ -31,7 +31,7 @@ def register_user(request):
 			password = form.cleaned_data['password1']
 			user = authenticate(username = username, password = password)
 			login(request,user)
-			messages.success(request, "You have sucessfully registered")
+			messages.success(request, "You have successfully registered")
 			return redirect('home')
 	else:
 		form = SignUpForm()
@@ -98,3 +98,32 @@ def add_med_report(request):
 	else:
 		messages.success(request, "You must be logged in to use that page!")
 		return redirect('home')
+
+def list_patient(request):
+	if request.user.is_authenticated:
+		patients = PatientRecord.objects.all()
+		reports = MedicalReport.objects.all()
+		return render(request, 'list_patient.html',{'patients':patients,'reports':reports})
+
+def bills(request):
+    if request.user.is_authenticated:
+        bills = Bill.objects.all()
+        return render(request, 'bills.html',{'bills':bills})
+
+def add_bill(request,pk):
+    patient = PatientRecord.objects.get(id = pk)
+    form = AddBill(request.POST or None)
+    form.initial['name'] = patient.name
+    form.initial['date'] = patient.date
+    report = MedicalReport.objects.get(name = patient.name,date = patient.date)
+    form.initial['medicineCost'] = report.amount
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Bill Added!")
+                return redirect('bills')
+        return render(request, 'add_bill.html',{'form':form,'patient':patient,'pk':pk})
+    else:
+        messages.success(request, "You must be logged in to use that page!")
+        return redirect('bills')	

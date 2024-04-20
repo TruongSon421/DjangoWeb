@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import PatientRecord,MedicalReport
+from .models import PatientRecord,MedicalReport,Bill
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(label="", widget = forms.TextInput(attrs={'class':'form-control','placeholder':'Email Address'}))
     name = forms.CharField(label="",max_length=100,widget = forms.TextInput(attrs={'class':'form-control','placeholder':'Name'}))
@@ -101,4 +101,13 @@ class MedReport(forms.ModelForm):
 
     class Meta:
         model = MedicalReport
+        exclude = ("user",)
+        
+class AddBill(forms.ModelForm):
+    name = forms.CharField(disabled=True,required=True, widget=forms.TextInput(attrs={"placeholder":"Name", "class":"form-control"}), label="")
+    date= forms.DateField(disabled=True,required=True, widget=forms.DateInput(attrs={"type":"date", "class":"form-control"}), label="")
+    cureCost = forms.IntegerField(initial=30000,disabled=True,required=True, widget=forms.TextInput(attrs={"placeholder":"cure cost","class":"form-control"}), label="")
+    medicineCost = forms.IntegerField(disabled=True,required=False, widget=forms.TextInput(attrs={"placeholder":"medicine cost","class":"form-control"}), label="")
+    class Meta:
+        model = Bill
         exclude = ("user",)

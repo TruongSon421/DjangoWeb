@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{%block title%}Bills{%endblock%}
+{% block content %}
+<table class="table table-striped table-hover table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Date</th>
+        <th scope="col">Cure Cost</th>
+        <th scope="col">Medicine Cost</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+  {% if bills %}
+      {% for bill in bills %}
+          <tr>
+              <td>{{ bill.id }}</td>
+              <td>{{ bill.name }}</td>
+              <td>{{ bill.date }}</td>
+              <td>{{ bill.cureCost }}</td>
+              <td>{{ bill.medicineCost }}</td>
+              
+          </tr>
+      {% endfor %}
+  
+  {% endif %}
+      
+        </tbody>
+      </table>
+{%endblock%}
