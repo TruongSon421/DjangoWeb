@@ -15,4 +15,10 @@ class MedicalReport(models.Model):
 	amount = models.IntegerField()
 	unit = models.CharField(max_length=100)
 	way = models.CharField(max_length = 100)
+class Bill(models.Model):
+	name = models.CharField(max_length = 100, default = "")
+	date = models.DateField(default='2024-01-01')
+	cureCost = models.IntegerField()
+	medicineCost = models.IntegerField()
+
 
