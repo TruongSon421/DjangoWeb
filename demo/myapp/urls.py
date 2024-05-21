@@ -11,4 +11,10 @@ urlpatterns = [
     path("update_record/<int:pk>", views.update_record, name = "update_record"),
     path("medical_report/", views.medical_report, name = "medical_report"),
     path("add_med_report/",views.add_med_report, name ="add_med_report"),
+    path("list_patient/",views.list_patient, name ="list_patient"),
+    path('all_patients/', views.all_patients, name='all_patients'),
+    path('medication_usage_report/', views.medication_usage_report, name='medication_usage_report'),
+    path('new_medication_entry/', views.new_medication_entry, name='new_medication_entry'),
+    path('medication_stock_list/', views.medication_stock_list, name='medication_stock_list'),
 ]
+

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Medication Usage Report{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Medication Usage Report</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Medication Name</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in reports %}
+            <tr>
+                <td>{{ report.month }}</td>
+                <td>{{ report.medication_name }}</td>
+                <td>{{ report.quantity }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

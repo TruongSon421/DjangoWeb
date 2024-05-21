@@ -1,7 +1,9 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import PatientRecord,MedicalReport
+from .models import MedicalExamination, PatientList,Patient,DISEASE_CHOICE,MedicationStockList
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(label="", widget = forms.TextInput(attrs={'class':'form-control','placeholder':'Email Address'}))
     name = forms.CharField(label="",max_length=100,widget = forms.TextInput(attrs={'class':'form-control','placeholder':'Name'}))
@@ -28,15 +30,16 @@ class SignUpForm(UserCreationForm):
             self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'	
 
 class AddRecordForm(forms.ModelForm):
-    name = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder":"Name", "class":"form-control"}), label="")
-    gender = forms.ChoiceField(required=True, choices=[('M', 'Male'), ('F', 'Female')], widget=forms.Select(attrs={"class":"form-control"}), label="")
-    year = forms.IntegerField(required=True, widget=forms.TextInput(attrs={"placeholder":"Year Of Birth", "class":"form-control"}), label="")
-    addr = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder":"Address", "class":"form-control"}), label="")
-    date= forms.DateField(required=True, widget=forms.DateInput(attrs={"type":"date", "class":"form-control"}), label="")
+    name = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder": "Name", "class": "form-control"}), label="")
+    gender = forms.ChoiceField(required=True, choices=[('M', 'Male'), ('F', 'Female')], widget=forms.Select(attrs={"class": "form-control"}), label="")
+    year = forms.IntegerField(required=True, widget=forms.TextInput(attrs={"placeholder": "Year Of Birth", "class": "form-control"}), label="")
+    addr = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder": "Address", "class": "form-control"}), label="")
+    date = forms.DateField(required=True, widget=forms.DateInput(attrs={"type": "date", "class": "form-control"}), label="")
 
     class Meta:
-        model = PatientRecord
-        exclude = ("user",)
+        model = PatientList
+        exclude = ("patient",)
+
 
 class MedReport(forms.ModelForm):
     PRED_CHOICES = [
@@ -100,5 +103,15 @@ class MedReport(forms.ModelForm):
     way = forms.ChoiceField(required=True, choices=WAY_CHOICES, widget=forms.Select(attrs={"class":"form-control"}), label="Way")
 
     class Meta:
-        model = MedicalReport
+        model = MedicalExamination
         exclude = ("user",)
+
+class MedicationStockListForm(forms.ModelForm):
+    class Meta:
+        model = MedicationStockList
+        fields = ['medication_name', 'unit', 'quantity', 'date_added', 'cost']
+
+class MedicalExaminationForm(forms.ModelForm):
+    class Meta:
+        model = MedicalExamination
+        fields = ['symptoms', 'disease_prediction','med', 'num_med']

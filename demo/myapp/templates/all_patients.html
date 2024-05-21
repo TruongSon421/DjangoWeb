@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Detailed Patient List{% endblock %}
+{% block content %}
+<h2>Detailed Patient List</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Symptoms</th>
+            <th>Disease Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for detailed_patient in detailed_patients %}
+        <tr>
+            <td>{{ detailed_patient.id }}</td>
+            <td>{{ detailed_patient.patientlist.patient.name }}</td>
+            <td>{{ detailed_patient.patientlist.date }}</td>
+            <td>{{ detailed_patient.examination.symptoms }}</td>
+            <td>{{ detailed_patient.examination.get_disease_prediction_display }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
