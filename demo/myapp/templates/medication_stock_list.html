@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Medication Stock List{% endblock %}
+{% block content %}
+<h2>Medication Stock List</h2>
+<a href="{% url 'new_medication_entry' %}" class="btn btn-primary mb-3">Add Medicine</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Medication Name</th>
+            <th>Unit</th>
+            <th>Stock Quantity</th>
+            <th>Price per medicine</th>
+            <th>Date Added</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for stock in stock_list %}
+        <tr>
+            <td>{{ stock.id }}</td>
+            <td>{{ stock.medication_name }}</td>
+            <td>{{stock.unit}}
+            <td>{{ stock.quantity }}</td>
+            <td>{{stock.cost}}</td>
+            <td>{{ stock.date_added }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
