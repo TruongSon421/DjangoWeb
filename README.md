@@ -33,7 +33,7 @@
 | STT    | MSSV          | Họ và Tên              | Github                                               | Email                   |
 | ------ |:-------------:| ----------------------:|-----------------------------------------------------:|-------------------------:
 | 1      | 22521259      | Trần Hà Sơn            | https://github.com/hason8193                         |22521259@gm.uit.edu.vn  |
-| 2      | 22521260      | Trần Thượng Trường Sơn | https://github.com/                                  |22521260@gm.uit.edu.vn  |
+| 2      | 22521260      | Trần Thượng Trường Sơn | https://github.com/TruongSon421                      |22521260@gm.uit.edu.vn  |
 | 3      | 21521463      | Đoàn Nhật Tiến         | https://github.com/TienDoan274                       |21521463@gm.uit.edu.vn  |
 
 ## ĐỒ ÁN MÔN HỌC
