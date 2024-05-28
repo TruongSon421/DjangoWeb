@@ -36,10 +36,10 @@ def register_user(request):
 		form = SignUpForm()
 		return render(request, 'register.html',{'form': form})
 	return render(request, 'register.html',{'form': form})
-def record_all(request):
+def record_all(request,day,month,year):
 	if request.user.is_authenticated:
 		records = PatientList.objects.all()
-		return render(request, 'record_all.html',{'records':records})
+		return render(request, 'record_all.html',{'records':records,'day':day,'month':month,'year':year})
 def customer_record(request, pk):
     if request.user.is_authenticated:
         patient_list = PatientList.objects.filter(patient_id=pk)
@@ -63,7 +63,7 @@ def delete_record(request, pk):
 	else:
 		messages.success(request, "You must be logged in to use that page!")
 		return redirect('home')
-def add_record(request):
+def add_record(request,day,month,year):
     form = AddRecordForm(request.POST or None)
     if request.user.is_authenticated:
         if request.method == "POST":
@@ -81,7 +81,7 @@ def add_record(request):
                 return redirect('record_all')
             else:
                 messages.error(request, "Record not added! Please correct errors.")
-        return render(request, 'add_record.html', {'form': form})
+        return render(request, 'add_record.html', {'form': form,'day':day,'month':month,'year':year})
     else:
         messages.error(request, "You must be logged in to use that page!")
         return redirect('home')
@@ -154,3 +154,7 @@ def new_medication_entry(request):
 def medication_stock_list(request):
     stock_list = MedicationStockList.objects.all()
     return render(request, 'medication_stock_list.html', {'stock_list': stock_list})
+
+def pre_record_all(request):
+    
+    return render(request, 'pre_record_all.html')

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}List Patient{% endblock %}
+{% block content %}
+<form id="dateForm">
+    <label for="birthday">Ngày khám:</label>
+    <input type="date" id="birthday" name="date">
+    <br><br>
+    <input type="submit" value="Gửi">
+</form>
+<script>
+    document.getElementById('dateForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Ngăn chặn form gửi đi theo cách thông thường
+
+        const dateInput = document.getElementById('birthday').value;
+        if (dateInput) {
+            const date = new Date(dateInput);
+            const day = date.getDate();
+            const month = date.getMonth() + 1; // Lưu ý: getMonth() trả về giá trị từ 0-11
+            const year = date.getFullYear();
+
+            // Tạo URL với các tham số ngày, tháng và năm
+            const url = `../record_all/${day}/${month}/${year}`;
+
+            // Chuyển hướng tới URL mới
+            window.location.href = url;
+        } else {
+            alert('Vui lòng chọn một ngày.');
+        }
+    });
+</script>
+{% endblock %}

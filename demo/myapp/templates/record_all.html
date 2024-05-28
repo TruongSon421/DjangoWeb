@@ -2,32 +2,42 @@
 {% block title %}Home Page{% endblock %}
 {% block content %}
 <h1>Medical examination schedule</h1>
-<a href="{% url 'add_record' %}" class="btn btn-primary" role="button">Add Record</a>
+<a href="{% url 'add_record' day month year %}" class="btn btn-primary" role="button">Add Record</a>
 {% regroup records by date as date_list %}
 {% for date in date_list %}
-  <table class="table table-striped table-hover table-bordered table-light">
-    <thead>
-      <tr>
-        <th scope="col">STT</th>
-        <th scope="col">Name</th>
-        <th scope="col">Gender</th>
-        <th scope="col">Year of Birth</th>
-        <th scope="col">Address</th>
-        <th scope="col">Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for record in date.list %}
-      <tr>
-        <td><a href="{% url 'record' record.id %}">{{ record.id }}</a></td>
-        <td>{{ record.patient.name }}</td>
-        <td>{{ record.patient.gender }}</td>
-        <td>{{ record.patient.birth_year }}</td>
-        <td>{{ record.patient.address }}</td>
-        <td>{{ record.date }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+
+  {% with day_value=date.grouper|date:"d" %}
+  {% with month_value=date.grouper|date:"m" %}
+  {% with year_value=date.grouper|date:"Y" %}
+  {% if day_value == day|stringformat:"02d"  and month_value == month|stringformat:"02d" and year_value == year|stringformat:"04d" %}
+    <h1>day:{{date.grouper|date:"d"}}</h1>
+    <table class="table table-striped table-hover table-bordered table-light">
+      <thead>
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Name</th>
+          <th scope="col">Gender</th>
+          <th scope="col">Year of Birth</th>
+          <th scope="col">Address</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for record in date.list %}
+        <tr>
+          <td><a href="{% url 'record' record.id %}">{{ record.id }}</a></td>
+          <td>{{ record.patient.name }}</td>
+          <td>{{ record.patient.gender }}</td>
+          <td>{{ record.patient.birth_year }}</td>
+          <td>{{ record.patient.address }}</td>
+          <td>{{ record.date }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+  {% endwith %}
+  {% endwith %}
+  {% endwith %}
 {% endfor %}
 {% endblock %}

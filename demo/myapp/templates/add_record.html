@@ -2,13 +2,15 @@
 {%block title%}Add Record Page{%endblock%}
 {% block content %}
 <div class="col-md-6 offset-md-3">
+    {{day}}
     <h1>Add Record</h1>
     <br>
-    <form method = "POST" action="{% url 'add_record' %}">
+    <form method = "POST" action="{% url 'add_record' day month year %}">
         {% csrf_token %}
         {{form.as_p}}
+
         <button type="submit" class="btn btn btn-success">Add Record</button>
-        <a href="{% url 'record_all' %}" class="btn btn-secondary">Back</a>
+        <a href="{% url 'record_all' day month year %}" class="btn btn-secondary">Back</a>
     </form>
 </div>
 {%endblock%}
